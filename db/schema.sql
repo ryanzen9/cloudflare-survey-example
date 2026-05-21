@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS surveys;
+DROP TABLE IF EXISTS responses;
+
 -- 1. 问卷模板表
 CREATE TABLE IF NOT EXISTS surveys (
     id TEXT PRIMARY KEY,
@@ -19,7 +22,7 @@ CREATE TABLE IF NOT EXISTS responses (
 -- 预埋一条测试问卷数据
 INSERT INTO surveys (id, title, description, questions) VALUES (
     'demo-survey',
-    '全栈全生态边缘算力调查问卷',
+    '边缘算力调查问卷',
     '体验 Cloudflare D1 + KV + R2 的极致响应速度',
     '[{"id":"q1","type":"text","title":"1. 您最看重 Cloudflare Workers 的哪一点？"},{"id":"q2","type":"file","title":"2. 上传您的架构设计图（可选）"}]'
 );

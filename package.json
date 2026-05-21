@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "db:init": "wrangler d1 execute survey-db --file ./db/schema.sql"
+    "db:init": "wrangler d1 execute survey-db --file ./db/schema.sql",
+    "deploy": "wrangler deploy"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.37.2",
