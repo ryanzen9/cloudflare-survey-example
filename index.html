@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edge Survey Platform</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f6821f">
+  <style>
+    body { font-family: system-ui, sans-serif; background: #fafafa; color: #333; max-width: 600px; margin: 40px auto; padding: 20px; }
+    .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px #00000010; margin-bottom: 20px; }
+    h1 { color: #f6821f; margin-top: 0; }
+    .q-title { font-weight: 600; margin-bottom: 8px; }
+    input[type="text"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; margin-bottom: 15px; }
+    button { background: #f6821f; color: white; border: none; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; }
+    button:hover { background: #e06d10; }
+    #status { font-weight: bold; margin-top: 15px; color: #2b6cb0; }
+  </style>
+</head>
+<body>
+
+
+  <div class="card">
+    <a href="/responses.html" style="font-size:13px;color:#f6821f;text-decoration:none;font-weight:600;">📋 查看所有回答记录 →</a>
+
+    <h1 id="survey-title">正在加载边缘问卷...</h1>
+    <p id="survey-desc"></p>
+  </div>
+
+  <form id="survey-form" style="display: none;">
+    <div id="questions-container"></div>
+    <button type="submit">安全提交答卷</button>
+  </form>
+
+  <div id="status"></div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

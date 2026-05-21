@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>回答记录 — Edge Survey Platform</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f6821f">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #fafafa; color: #333; max-width: 900px; margin: 40px auto; padding: 20px; }
+    .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px #00000010; margin-bottom: 20px; }
+    h1 { color: #f6821f; margin-top: 0; }
+    .nav { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; background: #f6821f; color: white; border: none; padding: 9px 18px; font-size: 14px; font-weight: 600; border-radius: 6px; cursor: pointer; text-decoration: none; }
+    .btn:hover { background: #e06d10; }
+    .btn-outline { background: transparent; color: #f6821f; border: 1.5px solid #f6821f; }
+    .btn-outline:hover { background: #fff4ec; }
+    .btn-sm { padding: 6px 14px; font-size: 13px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: #f9f9f9; text-align: left; padding: 12px 14px; border-bottom: 2px solid #eee; color: #555; font-weight: 600; }
+    td { padding: 11px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fffaf6; }
+    .badge { display: inline-block; background: #fff4ec; color: #c05010; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 12px; color: #666; }
+    .empty { text-align: center; padding: 48px 0; color: #999; }
+
+    /* Modal */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: white; border-radius: 14px; max-width: 640px; width: 100%; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+    .modal-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 22px 24px 16px; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; background: white; border-radius: 14px 14px 0 0; }
+    .modal-header h2 { margin: 0; font-size: 18px; color: #f6821f; }
+    .close-btn { background: none; border: none; font-size: 22px; cursor: pointer; color: #999; line-height: 1; padding: 0 4px; }
+    .close-btn:hover { color: #333; }
+    .modal-body { padding: 20px 24px 24px; }
+    .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .meta-item label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #999; margin-bottom: 4px; }
+    .meta-item span { font-size: 13px; color: #333; word-break: break-all; }
+    .section-title { font-weight: 700; font-size: 13px; color: #555; margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .qa-card { background: #f9f9f9; border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; }
+    .qa-card .question { font-size: 13px; font-weight: 600; color: #555; margin-bottom: 6px; }
+    .qa-card .answer { font-size: 14px; color: #222; }
+    .file-link { display: inline-flex; align-items: center; gap: 6px; color: #f6821f; text-decoration: none; font-size: 13px; border: 1px solid #f6821f; border-radius: 6px; padding: 6px 12px; }
+    .file-link:hover { background: #fff4ec; }
+    #loading, #error-msg { text-align: center; padding: 48px 0; font-weight: 600; }
+    #error-msg { color: #e53e3e; }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="/" class="btn btn-outline">← 返回问卷</a>
+    <h1 style="margin:0;font-size:20px;">回答记录</h1>
+  </div>
+
+  <div class="card">
+    <div id="loading">正在从边缘节点加载数据...</div>
+    <div id="error-msg" style="display:none;"></div>
+    <table id="responses-table" style="display:none;">
+      <thead>
+        <tr>
+          <th>答卷 ID</th>
+          <th>问卷</th>
+          <th>附件</th>
+          <th>提交时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="responses-body"></tbody>
+    </table>
+    <div id="empty-state" class="empty" style="display:none;">暂无任何回答记录</div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>答卷详情</h2>
+        <button class="close-btn" id="modal-close">×</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <div id="modal-loading" style="text-align:center;padding:32px;color:#999;">加载中...</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/responses.js"></script>
+</body>
+</html>

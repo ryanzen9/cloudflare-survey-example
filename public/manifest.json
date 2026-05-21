@@ -1,0 +1,17 @@
+{
+  "name": "边缘全栈轻量级调查问卷",
+  "short_name": "边缘问卷",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f6821f",
+  "description": "基于 Cloudflare Pages & PWA 构建的极致响应网络问卷系统",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

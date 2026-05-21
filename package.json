@@ -1,0 +1,20 @@
+{
+  "name": "cloudflare-pwa-survey",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "db:init": "wrangler d1 execute survey-db --file ./db/schema.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.37.2",
+    "vite": "^8.0.12",
+    "wrangler": "^4.93.0"
+  },
+  "dependencies": {
+    "hono": "^4.12.21"
+  }
+}

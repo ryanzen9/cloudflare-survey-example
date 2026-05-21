@@ -1,0 +1,25 @@
+# Cloudflare Workers 配置文件
+
+name = "cloudflare-pwa-survey"
+compatibility_date = "2026-05-21"
+main = "functions/api/route.js"
+
+# 静态资产（SPA 前端）
+[assets]
+directory = "./dist"
+
+# 1. 绑定 D1 数据库
+[[d1_databases]]
+binding = "DB"
+database_name = "survey-db"
+database_id = "local-sandbox-id"
+
+# 2. 绑定 KV 缓存
+[[kv_namespaces]]
+binding = "SURVEY_CACHE"
+id = "local-cache-id"
+
+# 3. 绑定 R2 对象存储
+[[r2_buckets]]
+binding = "SURVEY_R2"
+bucket_name = "survey-attachments"
