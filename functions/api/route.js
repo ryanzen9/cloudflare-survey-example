@@ -54,14 +54,13 @@ app.post('/api/survey/:id/submit', async (c) => {
   const responseId = `resp-${crypto.randomUUID()}`;
 
   try {
-    // TODO 使用 R2 请解除注释并调整以下代码以适配实际文件上传逻辑
-    // if (fileAttachment && fileAttachment instanceof File && fileAttachment.size > 0) {
-    //   const fileKey = `uploads/${surveyId}/${responseId}-${fileAttachment.name}`;
-    //   await c.env.SURVEY_R2.put(fileKey, fileAttachment.stream(), {
-    //     httpMetadata: { contentType: fileAttachment.type }
-    //   });
-    //   fileUrl = `/api/file/${fileKey}`;
-    // }
+    if (fileAttachment && fileAttachment instanceof File && fileAttachment.size > 0) {
+      const fileKey = `uploads/${surveyId}/${responseId}-${fileAttachment.name}`;
+      await c.env.SURVEY_R2.put(fileKey, fileAttachment.stream(), {
+        httpMetadata: { contentType: fileAttachment.type }
+      });
+      fileUrl = `/api/file/${fileKey}`;
+    }
 
     await c.env.DB.prepare(
       'INSERT INTO responses (id, survey_id, answers, file_url) VALUES (?, ?, ?, ?)'

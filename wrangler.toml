@@ -1,0 +1,22 @@
+# Cloudflare Workers 配置文件
+
+name = "cloudflare-pwa-survey"
+compatibility_date = "2026-05-21"
+main = "functions/api/route.js"
+
+[assets]
+directory = "./dist"
+binding="ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "survey-db"
+database_id = "5eb3c3fe-ce4e-4e10-ab01-2b29927c8b6b"
+
+[[kv_namespaces]]
+binding = "SURVEY_CACHE"
+id = "1e6c677049a64a0bab0d67370503566e"
+
+[[r2_buckets]]
+binding = "SURVEY_R2"
+bucket_name = "survey-attachments"
