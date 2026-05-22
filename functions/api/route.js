@@ -50,7 +50,7 @@ app.post('/api/survey/:id/submit', async (c) => {
   const answersJson = formData['answers'];
   const fileAttachment = formData['file'];
 
-  const fileUrl = '';
+  let fileUrl = null;
   const responseId = `resp-${crypto.randomUUID()}`;
 
   try {
